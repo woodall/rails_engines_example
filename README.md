@@ -3,8 +3,9 @@
 This shows how to use engines for namespacing within a "operator" Rails application.
 _View original
 [post](http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/)_.
+<a name="top"></a>
 
-## Table of contents<a name="top"></a>
+## Table of contents
 - [Rails Engines](#rails-engines)
 - [Versus Many Apps](#versus-many-apps)
 - [Versus Single App](#versus-single-app)
@@ -34,7 +35,8 @@ We've talked about this approach with a few people and they often ask very speci
 
 [sample application](https://github.com/taskrabbit/rails_engines_example).[back to top](#top)
 
-## Rails Engines <a name="rails-engines"></a>
+<a name="rails-engines"></a>
+## Rails Engines
 
 [Rails Engines](http://edgeguides.rubyonrails.org/engines.html)
 is basically a whole Rails app that lives in the container of another one. Put another way, as the docs note: an app itself is basically just an engine at the root level. Over the years, we've seen engines as parts of gems such as
@@ -49,7 +51,8 @@ and sometimes
 
 [back to top](#top)
 
-## Versus Many Apps <a name="versus-many-apps"></a>
+<a name="versus-many-apps"></a>
+## Versus Many Apps
 
 We'd seen an app balloon and get out of control before, leading us to try and find better ways of modularization. It was fun and somewhat liberating to say "Make a new app!" when there was a new problem domain to tackle. We also used it as a way to handle our growing organization. We could ask Team A to work on App A and know that they could run faster by understanding the scope was limited to that. As a side-note and in retrospect, we probably let organizational factors affect architecture way more than appropriate.
 
@@ -63,7 +66,8 @@ The issue with gem upgrades and odd server configurations does continue to exist
 
 [back to top](#top)
 
-## Versus Single App <a name="versus-single-app"></a>
+<a name="versus-single-app"></a>
+## Versus Single App
 
 It's very tempting when green-fielding a project to just revert back to the good-old-days of the original app. Man, that was so nice back before the (too) fat models and tangled views and combinatorics of 4 years of iterating screwed things up. And we've learned a lot since then too, right? Especially about saying no to all those
 [combinatorics](http://firstround.com/article/The-one-cost-engineers-and-product-managers-dont-consider)
@@ -77,15 +81,17 @@ Maybe.
 
 What we do know is that you can feel that way again even a year into an app. Inside any given engine, you have the scope of a much smaller project. Some engines may grow larger and you'll start to use those tools to keep things under control. Some will (correctly) have limited scope and feel like a simple app in which you understand everything that is happening. For example, decorators are great tool and they came in handy in our big app and larger engines. However, we've found in an a targeted engine that only serves its one purpose, it feels like there is room in that model to have some things that would have been decorated in a larger app. This is because it doesn't have all that other junk in it. Only this engine's junk :-)
 
-[back to top](#top)
 
-## Engine Usage <a name="engine-usage"></a>
+[back to top](#top)
+<a name="engine-usage"></a>
+## Engine Usage
 
 We've seen a few different ways to use engines in a Rails project. A few examples are below. The basic variables are what is in the "operator" (root) app and what kind of app we're making (API driven or not).
 
-[back to top](#top)
 
-### Admin <a name="admin"></a>
+[back to top](#top)
+<a name="admin"></a>
+### Admin
 
 The first engine we've recommend making to people is the admin engine. In the first app, we made the mistake of putting admin functionality in the "normal" pages. It was very enticing. We had that form already for the user to edit it. Just by changing the permissions, we could allow the admin to edit it, too. Forms are cheap and admins want extra fields. And more info. And basically a different UI.
 
@@ -126,8 +132,8 @@ Throughout these engine discussions, the question of sharing code and/or inherit
 Note that inheriting is probably a bad choice if you have callbacks in the root model that you don't want triggered when the admin saves the record. In that case, it would be better to `Admin::Post < ActiveRecord::Base` and either duplicate the logic, have it only in SQL table (unique indexes for example), or have a mixin that is included in both.
 
 [back to top](#top)
-
-### Shared Code <a name="shared-code"></a>
+<a name="shared-code"></a>
+### Shared Code
 
 The note about controllers being in charge of the parameters involved leads to the next possibility. You can have your models (at least the ones you need to have shared) in the operator and all the other stuff in the engines. At this point, maybe you could add the `engines` namespace to be more clear.
 
@@ -289,8 +295,8 @@ spec
 ```
 
 [back to top](#top)
-
-### API Server <a name="api-server"></a>
+<a name="api-server"></a>
+### API Server
 
 Our latest project at TaskRabbit basically looks the the above and the
 [example](https://github.com/taskrabbit/rails_engines_example)
@@ -374,14 +380,14 @@ The API setup alleviates one of the odder things about the example approach. Ide
 redirects to `/posts` after login. This is in the content engine. It's probably not the end of the world but that is coupling. We get around this using our one frontend engine and the several API ones, but this does some serious commitment.
 
 [back to top](#top)
-
-## Strategies <a name="strategies"></a>
+<a name="strategies"></a>
+## Strategies
 
 We've gotten lots of questions and read about issues people are having with engines so let's go through them here.
 
 [back to top](#top)
-
-### Migrations and Models <a name="migrations-and-models"></a>
+<a name="migrations-and-models"></a>
+### Migrations and Models
 
 Rails bills itself as "convention over configuration" so it's not too surprising to be confronted with lots of questions about "where to put stuff" when deviating (slightly) from the conventions. The one people seem the most worried about are migrations. We've never had an issue, but there must be scenarios that get a little tricky. If you are sharing the models, we would just put them in the normal `db/migrate` location. If your models live inside the engines, it's probably not a huge deal to still do that, but we've decided to have the migrations live with their models.
 
@@ -435,8 +441,8 @@ It might not be one of those cases, though. I have almost never been sorry when 
 Again, architecture does not exist for fun or to get in the way. If something is super-simple and obvious and easy to maintain while doing the "right" way for the design is difficult and fragile, we just do it the easy way. That's the way to ship things for customers. However, we've found that in most case the rules of the system kick off useful discussions and behaviors that tend to work out quite well.
 
 [back to top](#top)
-
-### Admin <a name="admin"></a>
+<a name="admin"></a>
+### Admin
 
 One of the cases where it's important to really examine the value and return on investment in engine separation is with the admin engine. We believe it's a special case.
 
@@ -449,8 +455,8 @@ if `Admin::Post < Content::Post` or just uses `Content::Post` directly in it's c
 In our much larger app, we inherit from and/or use most of the models in the system as well as service objects from other engines. We do not use outside controllers or views. Our admin engine does use it's own layout and much simpler request cycle than our much fancier frontend app. We tried to show the admin engine using a different layout in the example app, but they're both bootstrap so it might be hard to tell. The header is red in admin :-)
 
 [back to top](#top)
-
-### Assets <a name="assets"></a>
+<a name="assets"></a>
+### Assets
 
 Everyone seems to have struggled with this one and I can't even imagine pulling apart assets if they weren't coded in a modular way at the start. However, starting with them separate in Rails 4 has been fairly straightforward. We add the following
 [code](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/lib/account/engine.rb)
@@ -469,8 +475,8 @@ You could list all the manifests one by one, but we've found that it's simpler t
 ```
 
 [back to top](#top)
-
-### Routes <a name="routes"></a>
+<a name="routes"></a>
+### Routes
 
 In an Engine, routes go within the engine directory at the
 [same](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/config/routes.rb)
@@ -504,8 +510,8 @@ Another important note is to
 [there](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/lib/admin/engine.rb).
 
 [back to top](#top)
-
-### Tests <a name="tests"></a>
+<a name="tests"></a>
+### Tests
 
 Many of the issues noted
 [here](http://pivotallabs.com/experience-report-engine-usage-that-didn-t-work/)
@@ -570,8 +576,8 @@ end
 The same sort of thing could be done with FactoryGirl too. Often, we end up just using the ids more than we would in a normal test suite. The important thing to note is to just do whatever you feel gives you the best coverage with the most return on investment for your time.
 
 [back to top](#top)
-
-### Memory <a name="memory"></a>
+<a name="memory"></a>
+### Memory
 
 You may have noticed the
 [BootInquirer](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/lib/boot_inquirer.rb)
@@ -628,14 +634,14 @@ to say `Bundler.setup(:default, Rails.env)` instead of `Bundler.require(:default
 You may notice that the exception we made for the admin engine rears its head here. If admin depends on the other engines, you won't be able to use admin experience unless you launch the app with all those engines. This is definitely true. The servers that the admin urls route to will have to have all of the engines running. We found it was useful to quarantine admin usage anyway as there are a few requests and inputs that could blow out the heap size fairly easily.
 
 [back to top](#top)
-
-### Folders and Files <a name="folders-and-files"></a>
+<a name="folders-and-files"></a>
+### Folders and Files
 
 If you're interested in this setup, you're just going to have to get used to it. There are a lot of directories. There are lot of files named the same thing. I've found that Sublime Text is better for this than Textmate. I'm a huge fan of ⌘T to open files and Sublime allows the use of the directory names in that typeahead list. If your editor doesn't do this, then you'll spend more time than you want to look through the six different `user.rb` or `application_contoller.rb` files in the project.
 
 [back to top](#top)
-
-### Interaction Between Engines <a name="interaction-between-engines"></a>
+<a name="interaction-between-engines"></a>
+### Interaction Between Engines
 
 So we've gone through a lot of trouble to keep that shiny new Rails app feel. Each engine has a particular goal in life and everything is nice and simple. Particularly in the API case, it writes and reads its data and generally just takes of business. But the world isn't always perfect and sometimes the engines need to talk to each other. If it's happening too much, we probably didn't modularize along the right lines and we should consider throwing them together. We don't have all the answers, but engine naming and scoping seems to be a fine art. It's very tempting to go very narrow for cleanliness and it's also very tempting to just throw stuff in to an existing one so I'm not surprised when we find that the lines are a not drawn quite right.
 
@@ -714,7 +720,7 @@ end
 However you do it, the point is that this engine is working on it's own for it's own purposes. Layering it on, it's quite straightforward to see how we could build spam detection as its own engine or into the admin one. We could subscribe to ratings or post creation and react accordingly, maybe pulling the post or giving the user a score that limits his visibility, etc. Or we could add a metrics engine, to report the conversion of a user on his first post to a variety of external services. Then, when a new developer starts and asks where the metrics code is, we don't have to say what we said before which was, "everywhere." We could show very simple mappings between things that are happening throughout the system and the numbers like revenue or engagement that are getting reported to something like Google Analytics.
 
 [back to top](#top)
-
-## Summary <a name="summary"></a>
+<a name="summary"></a>
+## Summary
 
 Try out engines. We like them.

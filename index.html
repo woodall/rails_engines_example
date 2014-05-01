@@ -15,7 +15,7 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Rails engines example</h1>
+        <h1>Rails 4 Engines</h1>
         <p>Table of contents</p>
         <p class="toc"><a href="#rails-engines">Rails Engines</a></p>
         <p class="toc"><a href="#versus-many-apps">Versus Many Apps</a></p>
@@ -36,16 +36,10 @@
         <p class="toc"><a href="#summary">Summary</a></p>
       </header>
       <section>
-        <h1>
-<a name="rails-engines-example" class="anchor" href="#rails-engines-example"><span class="octicon octicon-link"></span></a>Rails Engines Example</h1>
-
-<p>This shows how to use engines for namespacing within a "operator" Rails application.
-<em>View original
+        <h1>Task Rabbit presents</h1>
+<p>How to use engines for namespacing within a "operator" Rails application.</p>
+<em>Originally written as a
 <a href="http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/">post</a></em>.</p>
-
-<h2>
-<a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents<a name="top"></a>
-</h2>
 
 <p>At
 <a href="https://www.taskrabbit.com">TaskRabbit</a>,
@@ -57,8 +51,9 @@ is a single "app" made up of several Rails engines. We have found that this stri
 
 <p><a href="https://github.com/taskrabbit/rails_engines_example">sample application</a>.<a href="#top">back to top</a></p>
 
+name="rails-engines"></a>
 <h2>
-<a name="rails-engines-" class="anchor" href="#rails-engines-"><span class="octicon octicon-link"></span></a>Rails Engines <a name="rails-engines"></a>
+-engines-"><span class="octicon octicon-link"></span></a>Rails Engina
 </h2>
 
 <p><a href="http://edgeguides.rubyonrails.org/engines.html">Rails Engines</a>
@@ -74,8 +69,9 @@ and sometimes
 
 <p><a href="#top">back to top</a></p>
 
+versus-many-apps"></a>
 <h2>
-<a name="versus-many-apps-" class="anchor" href="#versus-many-apps-"><span class="octicon octicon-link"></span></a>Versus Many Apps <a name="versus-many-apps"></a>
+-many-apps-"><span class="octicon octicon-link"></span></a>Versus Many Apps <a ="
 </h2>
 
 <p>We'd seen an app balloon and get out of control before, leading us to try and find better ways of modularization. It was fun and somewhat liberating to say "Make a new app!" when there was a new problem domain to tackle. We also used it as a way to handle our growing organization. We could ask Team A to work on App A and know that they could run faster by understanding the scope was limited to that. As a side-note and in retrospect, we probably let organizational factors affect architecture way more than appropriate.</p>
@@ -90,8 +86,9 @@ and sometimes
 
 <p><a href="#top">back to top</a></p>
 
+versus-single-app"></a>
 <h2>
-<a name="versus-single-app-" class="anchor" href="#versus-single-app-"><span class="octicon octicon-link"></span></a>Versus Single App <a name="versus-single-app"></a>
+-single-app-"><span class="octicon octicon-link"></span></a>Versus Single App <a ="
 </h2>
 
 <p>It's very tempting when green-fielding a project to just revert back to the good-old-days of the original app. Man, that was so nice back before the (too) fat models and tangled views and combinatorics of 4 years of iterating screwed things up. And we've learned a lot since then too, right? Especially about saying no to all those
@@ -108,16 +105,18 @@ Maybe.</p>
 
 <p><a href="#top">back to top</a></p>
 
+name="engine-usage"></a>
 <h2>
-<a name="engine-usage-" class="anchor" href="#engine-usage-"><span class="octicon octicon-link"></span></a>Engine Usage <a name="engine-usage"></a>
+-usage-"><span class="octicon octicon-link"></span></a>Engine Usaa
 </h2>
 
 <p>We've seen a few different ways to use engines in a Rails project. A few examples are below. The basic variables are what is in the "operator" (root) app and what kind of app we're making (API driven or not).</p>
 
 <p><a href="#top">back to top</a></p>
 
+<a name="admin"></a>
 <h3>
-<a name="admin-" class="anchor" href="#admin-"><span class="octicon octicon-link"></span></a>Admin <a name="admin"></a>
+<span class="octicon octicon-link"></span>Admin
 </h3>
 
 <p>The first engine we've recommend making to people is the admin engine. In the first app, we made the mistake of putting admin functionality in the "normal" pages. It was very enticing. We had that form already for the user to edit it. Just by changing the permissions, we could allow the admin to edit it, too. Forms are cheap and admins want extra fields. And more info. And basically a different UI.</p>
@@ -159,8 +158,9 @@ spec
 
 <p><a href="#top">back to top</a></p>
 
+name="shared-code"></a>
 <h3>
-<a name="shared-code-" class="anchor" href="#shared-code-"><span class="octicon octicon-link"></span></a>Shared Code <a name="shared-code"></a>
+-code-"><span class="octicon octicon-link"></span></a>Shared Coa
 </h3>
 
 <p>The note about controllers being in charge of the parameters involved leads to the next possibility. You can have your models (at least the ones you need to have shared) in the operator and all the other stuff in the engines. At this point, maybe you could add the <code>engines</code> namespace to be more clear.</p>
@@ -321,8 +321,9 @@ spec
 
 <p><a href="#top">back to top</a></p>
 
+name="api-server"></a>
 <h3>
-<a name="api-server-" class="anchor" href="#api-server-"><span class="octicon octicon-link"></span></a>API Server <a name="api-server"></a>
+-server-"><span class="octicon octicon-link"></span></a>API Serva
 </h3>
 
 <p>Our latest project at TaskRabbit basically looks the the above and the
@@ -407,16 +408,18 @@ redirects to <code>/posts</code> after login. This is in the content engine. It'
 
 <p><a href="#top">back to top</a></p>
 
+<a name="strategies"></a>
 <h2>
-<a name="strategies-" class="anchor" href="#strategies-"><span class="octicon octicon-link"></span></a>Strategies <a name="strategies"></a>
+<span class="octicon octicon-link"></span>Strategies
 </h2>
 
 <p>We've gotten lots of questions and read about issues people are having with engines so let's go through them here.</p>
 
 <p><a href="#top">back to top</a></p>
 
+migrations-and-models"></a>
 <h3>
-<a name="migrations-and-models-" class="anchor" href="#migrations-and-models-"><span class="octicon octicon-link"></span></a>Migrations and Models <a name="migrations-and-models"></a>
+-and-models-"><span class="octicon octicon-link"></span></a>Migrations and Models <a ="
 </h3>
 
 <p>Rails bills itself as "convention over configuration" so it's not too surprising to be confronted with lots of questions about "where to put stuff" when deviating (slightly) from the conventions. The one people seem the most worried about are migrations. We've never had an issue, but there must be scenarios that get a little tricky. If you are sharing the models, we would just put them in the normal <code>db/migrate</code> location. If your models live inside the engines, it's probably not a huge deal to still do that, but we've decided to have the migrations live with their models.</p>
@@ -470,8 +473,9 @@ the migration to the account engine.</p>
 
 <p><a href="#top">back to top</a></p>
 
+<a name="admin"></a>
 <h3>
-<a name="admin--1" class="anchor" href="#admin--1"><span class="octicon octicon-link"></span></a>Admin <a name="admin"></a>
+-1"><span class="octicon octicon-link"></span>Admin
 </h3>
 
 <p>One of the cases where it's important to really examine the value and return on investment in engine separation is with the admin engine. We believe it's a special case.</p>
@@ -486,8 +490,9 @@ if <code>Admin::Post &lt; Content::Post</code> or just uses <code>Content::Post<
 
 <p><a href="#top">back to top</a></p>
 
+<a name="assets"></a>
 <h3>
-<a name="assets-" class="anchor" href="#assets-"><span class="octicon octicon-link"></span></a>Assets <a name="assets"></a>
+<span class="octicon octicon-link"></span>Assets
 </h3>
 
 <p>Everyone seems to have struggled with this one and I can't even imagine pulling apart assets if they weren't coded in a modular way at the start. However, starting with them separate in Rails 4 has been fairly straightforward. We add the following
@@ -507,8 +512,9 @@ to our engine much like the migration code.</p>
 
 <p><a href="#top">back to top</a></p>
 
+<a name="routes"></a>
 <h3>
-<a name="routes-" class="anchor" href="#routes-"><span class="octicon octicon-link"></span></a>Routes <a name="routes"></a>
+<span class="octicon octicon-link"></span>Routes
 </h3>
 
 <p>In an Engine, routes go within the engine directory at the
@@ -541,9 +547,9 @@ to our engine much like the migration code.</p>
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/lib/admin/engine.rb">there</a>.</p>
 
 <p><a href="#top">back to top</a></p>
-
+<a name="tests"></a>
 <h3>
-<a name="tests-" class="anchor" href="#tests-"><span class="octicon octicon-link"></span></a>Tests <a name="tests"></a>
+<span class="octicon octicon-link"></span></a>Tests
 </h3>
 
 <p>Many of the issues noted
@@ -607,8 +613,9 @@ to say what the classes are as well as switch between them. So this test will us
 
 <p><a href="#top">back to top</a></p>
 
+<a name="memory"></a>
 <h3>
-<a name="memory-" class="anchor" href="#memory-"><span class="octicon octicon-link"></span></a>Memory <a name="memory"></a>
+<span class="octicon octicon-link"></span>Memory
 </h3>
 
 <p>You may have noticed the
@@ -664,16 +671,18 @@ to say <code>Bundler.setup(:default, Rails.env)</code> instead of <code>Bundler.
 
 <p><a href="#top">back to top</a></p>
 
+folders-and-files"></a>
 <h3>
-<a name="folders-and-files-" class="anchor" href="#folders-and-files-"><span class="octicon octicon-link"></span></a>Folders and Files <a name="folders-and-files"></a>
+-and-files-"><span class="octicon octicon-link"></span></a>Folders and Files <a ="
 </h3>
 
 <p>If you're interested in this setup, you're just going to have to get used to it. There are a lot of directories. There are lot of files named the same thing. I've found that Sublime Text is better for this than Textmate. I'm a huge fan of ⌘T to open files and Sublime allows the use of the directory names in that typeahead list. If your editor doesn't do this, then you'll spend more time than you want to look through the six different <code>user.rb</code> or <code>application_contoller.rb</code> files in the project.</p>
 
 <p><a href="#top">back to top</a></p>
 
+interaction-between-engines"></a>
 <h3>
-<a name="interaction-between-engines-" class="anchor" href="#interaction-between-engines-"><span class="octicon octicon-link"></span></a>Interaction Between Engines <a name="interaction-between-engines"></a>
+-between-engines-"><span class="octicon octicon-link"></span></a>Interaction Between Engines <a ="
 </h3>
 
 <p>So we've gone through a lot of trouble to keep that shiny new Rails app feel. Each engine has a particular goal in life and everything is nice and simple. Particularly in the API case, it writes and reads its data and generally just takes of business. But the world isn't always perfect and sometimes the engines need to talk to each other. If it's happening too much, we probably didn't modularize along the right lines and we should consider throwing them together. We don't have all the answers, but engine naming and scoping seems to be a fine art. It's very tempting to go very narrow for cleanliness and it's also very tempting to just throw stuff in to an existing one so I'm not surprised when we find that the lines are a not drawn quite right.</p>
@@ -751,8 +760,9 @@ B) The content engine adds some calculations. <code>ResqueBus.publish('post_rate
 
 <p><a href="#top">back to top</a></p>
 
+<a name="summary"></a>
 <h2>
-<a name="summary-" class="anchor" href="#summary-"><span class="octicon octicon-link"></span></a>Summary <a name="summary"></a>
+<span class="octicon octicon-link"></span>Summary
 </h2>
 
 <p>Try out engines. We like them.</p>
