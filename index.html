@@ -15,33 +15,49 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Rails 4 Engines</h1>
-        <p>Table of contents</p>
-        <p class="toc"><a href="#rails-engines">Rails Engines</a></p>
-        <p class="toc"><a href="#versus-many-apps">Versus Many Apps</a></p>
-        <p class="toc"><a href="#versus-single-app">Versus Single App</a></p>
-        <p class="toc"><a href="#engine-usage">Engine Usage</a></p>
-        <p class="toc"><a href="#admin">Admin</a></p>
-        <p class="toc"><a href="#shared-code">Shared Code</a></p>
-        <p class="toc"><a href="#api-server">API Server</a></p>
-        <p class="toc"><a href="#strategies">Strategies</a></p>
-        <p class="toc"><a href="#migrations-and-models">Migrations and Models</a></p>
-        <p class="toc"><a href="#admin">Admin</a></p>
-        <p class="toc"><a href="#assets">Assets</a></p>
-        <p class="toc"><a href="#routes">Routes</a></p>
-        <p class="toc"><a href="#tests">Tests</a></p>
-        <p class="toc"><a href="#memory">Memory</a></p>
-        <p class="toc"><a href="#folders-and-files">Folders and Files</a></p>
-        <p class="toc"><a href="#interaction-between-engines">Interaction Between Engines</a></p>
-        <p class="toc"><a href="#summary">Summary</a></p>
+        <h1>Rails engines example</h1>
+        <p></p>
+
+        <p class="view"><a href="https://github.com/woodall/rails_engines_example">View the Project on GitHub <small>woodall/rails_engines_example</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/woodall/rails_engines_example/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/woodall/rails_engines_example/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/woodall/rails_engines_example">View On <strong>GitHub</strong></a></li>
+        </ul>
       </header>
       <section>
-        <h1>Task Rabbit presents</h1>
-<p>How to use engines for namespacing within a "operator" Rails application.</p>
-<em>Originally written as a
-<a href="http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/">post</a></em>.</p>
+        <h1>
+<a name="rails-engines-example" class="anchor" href="#rails-engines-example"><span class="octicon octicon-link"></span></a>Rails Engines Example</h1>
 
-<p>At
+<p>This shows how to use engines for namespacing within a "operator" Rails application.
+<em>View original
+<a href="http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/">post</a></em>.
+<a name="top"></a></p>
+
+<h2>
+<a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of contents</h2>
+
+<ul>
+<li><a href="#rails-engines">Rails Engines</a></li>
+<li><a href="#versus-many-apps">Versus Many Apps</a></li>
+<li><a href="#versus-single-app">Versus Single App</a></li>
+<li><a href="#engine-usage">Engine Usage</a></li>
+<li><a href="#admin">Admin</a></li>
+<li><a href="#shared-code">Shared Code</a></li>
+<li><a href="#api-server">API Server</a></li>
+<li><a href="#strategies">Strategies</a></li>
+<li><a href="#migrations-and-models">Migrations and Models</a></li>
+<li><a href="#admin">Admin</a></li>
+<li><a href="#assets">Assets</a></li>
+<li><a href="#routes">Routes</a></li>
+<li><a href="#tests">Tests</a></li>
+<li><a href="#memory">Memory</a></li>
+<li><a href="#folders-and-files">Folders and Files</a></li>
+<li><a href="#interaction-between-engines">Interaction Between Engines</a></li>
+<li><a href="#summary">Summary</a></li>
+</ul><p>At
 <a href="https://www.taskrabbit.com">TaskRabbit</a>,
 we have gone through a few iterations on how we make our app(s). In the beginning, there was the monolithic Rails app in the standard way with 100+ models and their many corresponding controllers and views. Then we moved to several apps with their own logic and often using the big one via API. Our newest
 <a href="https://taskrabbit.co.uk">project</a>
@@ -51,10 +67,10 @@ is a single "app" made up of several Rails engines. We have found that this stri
 
 <p><a href="https://github.com/taskrabbit/rails_engines_example">sample application</a>.<a href="#top">back to top</a></p>
 
-name="rails-engines"></a>
+<p><a name="rails-engines"></a></p>
+
 <h2>
--engines-"><span class="octicon octicon-link"></span></a>Rails Engina
-</h2>
+<a name="rails-engines" class="anchor" href="#rails-engines"><span class="octicon octicon-link"></span></a>Rails Engines</h2>
 
 <p><a href="http://edgeguides.rubyonrails.org/engines.html">Rails Engines</a>
 is basically a whole Rails app that lives in the container of another one. Put another way, as the docs note: an app itself is basically just an engine at the root level. Over the years, we've seen engines as parts of gems such as
@@ -69,10 +85,10 @@ and sometimes
 
 <p><a href="#top">back to top</a></p>
 
-versus-many-apps"></a>
+<p><a name="versus-many-apps"></a></p>
+
 <h2>
--many-apps-"><span class="octicon octicon-link"></span></a>Versus Many Apps <a ="
-</h2>
+<a name="versus-many-apps" class="anchor" href="#versus-many-apps"><span class="octicon octicon-link"></span></a>Versus Many Apps</h2>
 
 <p>We'd seen an app balloon and get out of control before, leading us to try and find better ways of modularization. It was fun and somewhat liberating to say "Make a new app!" when there was a new problem domain to tackle. We also used it as a way to handle our growing organization. We could ask Team A to work on App A and know that they could run faster by understanding the scope was limited to that. As a side-note and in retrospect, we probably let organizational factors affect architecture way more than appropriate.</p>
 
@@ -86,10 +102,10 @@ versus-many-apps"></a>
 
 <p><a href="#top">back to top</a></p>
 
-versus-single-app"></a>
+<p><a name="versus-single-app"></a></p>
+
 <h2>
--single-app-"><span class="octicon octicon-link"></span></a>Versus Single App <a ="
-</h2>
+<a name="versus-single-app" class="anchor" href="#versus-single-app"><span class="octicon octicon-link"></span></a>Versus Single App</h2>
 
 <p>It's very tempting when green-fielding a project to just revert back to the good-old-days of the original app. Man, that was so nice back before the (too) fat models and tangled views and combinatorics of 4 years of iterating screwed things up. And we've learned a lot since then too, right? Especially about saying no to all those
 <a href="http://firstround.com/article/The-one-cost-engineers-and-product-managers-dont-consider">combinatorics</a>
@@ -103,21 +119,19 @@ Maybe.</p>
 
 <p>What we do know is that you can feel that way again even a year into an app. Inside any given engine, you have the scope of a much smaller project. Some engines may grow larger and you'll start to use those tools to keep things under control. Some will (correctly) have limited scope and feel like a simple app in which you understand everything that is happening. For example, decorators are great tool and they came in handy in our big app and larger engines. However, we've found in an a targeted engine that only serves its one purpose, it feels like there is room in that model to have some things that would have been decorated in a larger app. This is because it doesn't have all that other junk in it. Only this engine's junk :-)</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="engine-usage"></a></p>
 
-name="engine-usage"></a>
 <h2>
--usage-"><span class="octicon octicon-link"></span></a>Engine Usaa
-</h2>
+<a name="engine-usage" class="anchor" href="#engine-usage"><span class="octicon octicon-link"></span></a>Engine Usage</h2>
 
 <p>We've seen a few different ways to use engines in a Rails project. A few examples are below. The basic variables are what is in the "operator" (root) app and what kind of app we're making (API driven or not).</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="admin"></a></p>
 
-<a name="admin"></a>
 <h3>
-<span class="octicon octicon-link"></span>Admin
-</h3>
+<a name="admin" class="anchor" href="#admin"><span class="octicon octicon-link"></span></a>Admin</h3>
 
 <p>The first engine we've recommend making to people is the admin engine. In the first app, we made the mistake of putting admin functionality in the "normal" pages. It was very enticing. We had that form already for the user to edit it. Just by changing the permissions, we could allow the admin to edit it, too. Forms are cheap and admins want extra fields. And more info. And basically a different UI.</p>
 
@@ -156,12 +170,11 @@ spec
 
 <p>Note that inheriting is probably a bad choice if you have callbacks in the root model that you don't want triggered when the admin saves the record. In that case, it would be better to <code>Admin::Post &lt; ActiveRecord::Base</code> and either duplicate the logic, have it only in SQL table (unique indexes for example), or have a mixin that is included in both.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="shared-code"></a></p>
 
-name="shared-code"></a>
 <h3>
--code-"><span class="octicon octicon-link"></span></a>Shared Coa
-</h3>
+<a name="shared-code" class="anchor" href="#shared-code"><span class="octicon octicon-link"></span></a>Shared Code</h3>
 
 <p>The note about controllers being in charge of the parameters involved leads to the next possibility. You can have your models (at least the ones you need to have shared) in the operator and all the other stuff in the engines. At this point, maybe you could add the <code>engines</code> namespace to be more clear.</p>
 
@@ -319,12 +332,11 @@ gems
 spec
 </code></pre>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="api-server"></a></p>
 
-name="api-server"></a>
 <h3>
--server-"><span class="octicon octicon-link"></span></a>API Serva
-</h3>
+<a name="api-server" class="anchor" href="#api-server"><span class="octicon octicon-link"></span></a>API Server</h3>
 
 <p>Our latest project at TaskRabbit basically looks the the above and the
 <a href="https://github.com/taskrabbit/rails_engines_example">example</a>
@@ -406,21 +418,19 @@ spec
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/app/controllers/account/application_controller.rb#L11">login controller</a>
 redirects to <code>/posts</code> after login. This is in the content engine. It's probably not the end of the world but that is coupling. We get around this using our one frontend engine and the several API ones, but this does some serious commitment.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="strategies"></a></p>
 
-<a name="strategies"></a>
 <h2>
-<span class="octicon octicon-link"></span>Strategies
-</h2>
+<a name="strategies" class="anchor" href="#strategies"><span class="octicon octicon-link"></span></a>Strategies</h2>
 
 <p>We've gotten lots of questions and read about issues people are having with engines so let's go through them here.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="migrations-and-models"></a></p>
 
-migrations-and-models"></a>
 <h3>
--and-models-"><span class="octicon octicon-link"></span></a>Migrations and Models <a ="
-</h3>
+<a name="migrations-and-models" class="anchor" href="#migrations-and-models"><span class="octicon octicon-link"></span></a>Migrations and Models</h3>
 
 <p>Rails bills itself as "convention over configuration" so it's not too surprising to be confronted with lots of questions about "where to put stuff" when deviating (slightly) from the conventions. The one people seem the most worried about are migrations. We've never had an issue, but there must be scenarios that get a little tricky. If you are sharing the models, we would just put them in the normal <code>db/migrate</code> location. If your models live inside the engines, it's probably not a huge deal to still do that, but we've decided to have the migrations live with their models.</p>
 
@@ -471,12 +481,11 @@ the migration to the account engine.</p>
 
 <p>Again, architecture does not exist for fun or to get in the way. If something is super-simple and obvious and easy to maintain while doing the "right" way for the design is difficult and fragile, we just do it the easy way. That's the way to ship things for customers. However, we've found that in most case the rules of the system kick off useful discussions and behaviors that tend to work out quite well.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="admin"></a></p>
 
-<a name="admin"></a>
 <h3>
--1"><span class="octicon octicon-link"></span>Admin
-</h3>
+<a name="admin-1" class="anchor" href="#admin-1"><span class="octicon octicon-link"></span></a>Admin</h3>
 
 <p>One of the cases where it's important to really examine the value and return on investment in engine separation is with the admin engine. We believe it's a special case.</p>
 
@@ -488,12 +497,11 @@ if <code>Admin::Post &lt; Content::Post</code> or just uses <code>Content::Post<
 
 <p>In our much larger app, we inherit from and/or use most of the models in the system as well as service objects from other engines. We do not use outside controllers or views. Our admin engine does use it's own layout and much simpler request cycle than our much fancier frontend app. We tried to show the admin engine using a different layout in the example app, but they're both bootstrap so it might be hard to tell. The header is red in admin :-)</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="assets"></a></p>
 
-<a name="assets"></a>
 <h3>
-<span class="octicon octicon-link"></span>Assets
-</h3>
+<a name="assets" class="anchor" href="#assets"><span class="octicon octicon-link"></span></a>Assets</h3>
 
 <p>Everyone seems to have struggled with this one and I can't even imagine pulling apart assets if they weren't coded in a modular way at the start. However, starting with them separate in Rails 4 has been fairly straightforward. We add the following
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/lib/account/engine.rb">code</a>
@@ -510,12 +518,11 @@ to our engine much like the migration code.</p>
 <span class="o">=</span> <span class="n">javascript_include_tag</span> <span class="s1">'account/manifests/application'</span>
 </pre></div>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="routes"></a></p>
 
-<a name="routes"></a>
 <h3>
-<span class="octicon octicon-link"></span>Routes
-</h3>
+<a name="routes" class="anchor" href="#routes"><span class="octicon octicon-link"></span></a>Routes</h3>
 
 <p>In an Engine, routes go within the engine directory at the
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/config/routes.rb">same</a>
@@ -546,11 +553,11 @@ to our engine much like the migration code.</p>
 <code>isolate_namespace</code> in your Engine declaration. That prevents various things like helper methods from leaking into other engines. This makes sense for our case because the whole point is to stay contained. Another side effect is route helpers like 'posts_path' to work as expected without needing to prefix them like <code>content.posts_path</code> in your views. I believe it might also make the parameters more regular (for example having <code>params[:post]</code> instead of <code>params[:content_post]</code>). Oh, just put it in
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/lib/admin/engine.rb">there</a>.</p>
 
-<p><a href="#top">back to top</a></p>
-<a name="tests"></a>
+<p><a href="#top">back to top</a>
+<a name="tests"></a></p>
+
 <h3>
-<span class="octicon octicon-link"></span></a>Tests
-</h3>
+<a name="tests" class="anchor" href="#tests"><span class="octicon octicon-link"></span></a>Tests</h3>
 
 <p>Many of the issues noted
 <a href="http://pivotallabs.com/experience-report-engine-usage-that-didn-t-work/">here</a>
@@ -611,12 +618,11 @@ to say what the classes are as well as switch between them. So this test will us
 
 <p>The same sort of thing could be done with FactoryGirl too. Often, we end up just using the ids more than we would in a normal test suite. The important thing to note is to just do whatever you feel gives you the best coverage with the most return on investment for your time.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="memory"></a></p>
 
-<a name="memory"></a>
 <h3>
-<span class="octicon octicon-link"></span>Memory
-</h3>
+<a name="memory" class="anchor" href="#memory"><span class="octicon octicon-link"></span></a>Memory</h3>
 
 <p>You may have noticed the
 <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/lib/boot_inquirer.rb">BootInquirer</a>
@@ -669,21 +675,19 @@ to say <code>Bundler.setup(:default, Rails.env)</code> instead of <code>Bundler.
 
 <p>You may notice that the exception we made for the admin engine rears its head here. If admin depends on the other engines, you won't be able to use admin experience unless you launch the app with all those engines. This is definitely true. The servers that the admin urls route to will have to have all of the engines running. We found it was useful to quarantine admin usage anyway as there are a few requests and inputs that could blow out the heap size fairly easily.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="folders-and-files"></a></p>
 
-folders-and-files"></a>
 <h3>
--and-files-"><span class="octicon octicon-link"></span></a>Folders and Files <a ="
-</h3>
+<a name="folders-and-files" class="anchor" href="#folders-and-files"><span class="octicon octicon-link"></span></a>Folders and Files</h3>
 
 <p>If you're interested in this setup, you're just going to have to get used to it. There are a lot of directories. There are lot of files named the same thing. I've found that Sublime Text is better for this than Textmate. I'm a huge fan of ⌘T to open files and Sublime allows the use of the directory names in that typeahead list. If your editor doesn't do this, then you'll spend more time than you want to look through the six different <code>user.rb</code> or <code>application_contoller.rb</code> files in the project.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="interaction-between-engines"></a></p>
 
-interaction-between-engines"></a>
 <h3>
--between-engines-"><span class="octicon octicon-link"></span></a>Interaction Between Engines <a ="
-</h3>
+<a name="interaction-between-engines" class="anchor" href="#interaction-between-engines"><span class="octicon octicon-link"></span></a>Interaction Between Engines</h3>
 
 <p>So we've gone through a lot of trouble to keep that shiny new Rails app feel. Each engine has a particular goal in life and everything is nice and simple. Particularly in the API case, it writes and reads its data and generally just takes of business. But the world isn't always perfect and sometimes the engines need to talk to each other. If it's happening too much, we probably didn't modularize along the right lines and we should consider throwing them together. We don't have all the answers, but engine naming and scoping seems to be a fine art. It's very tempting to go very narrow for cleanliness and it's also very tempting to just throw stuff in to an existing one so I'm not surprised when we find that the lines are a not drawn quite right.</p>
 
@@ -758,19 +762,20 @@ B) The content engine adds some calculations. <code>ResqueBus.publish('post_rate
 
 <p>However you do it, the point is that this engine is working on it's own for it's own purposes. Layering it on, it's quite straightforward to see how we could build spam detection as its own engine or into the admin one. We could subscribe to ratings or post creation and react accordingly, maybe pulling the post or giving the user a score that limits his visibility, etc. Or we could add a metrics engine, to report the conversion of a user on his first post to a variety of external services. Then, when a new developer starts and asks where the metrics code is, we don't have to say what we said before which was, "everywhere." We could show very simple mappings between things that are happening throughout the system and the numbers like revenue or engagement that are getting reported to something like Google Analytics.</p>
 
-<p><a href="#top">back to top</a></p>
+<p><a href="#top">back to top</a>
+<a name="summary"></a></p>
 
-<a name="summary"></a>
 <h2>
-<span class="octicon octicon-link"></span>Summary
-</h2>
+<a name="summary" class="anchor" href="#summary"><span class="octicon octicon-link"></span></a>Summary</h2>
 
 <p>Try out engines. We like them.</p>
       </section>
       <footer>
+        <p>This project is maintained by <a href="https://github.com/woodall">woodall</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-
+    
   </body>
 </html>
