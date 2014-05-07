@@ -422,7 +422,7 @@ It might not be one of those cases, though. I have almost never been sorry when 
 Again, architecture does not exist for fun or to get in the way. If something is super-simple and obvious and easy to maintain while doing the "right" way for the design is difficult and fragile, we just do it the easy way. That's the way to ship things for customers. However, we've found that in most case the rules of the system kick off useful discussions and behaviors that tend to work out quite well.
 
 
-<a name="admin"></a>
+<a name="admin-tips"></a>
 ### Admin
 
 One of the cases where it's important to really examine the value and return on investment in engine separation is with the admin engine. We believe it's a special case.
@@ -701,7 +701,7 @@ end
 However you do it, the point is that this engine is working on it's own for it's own purposes. Layering it on, it's quite straightforward to see how we could build spam detection as its own engine or into the admin one. We could subscribe to ratings or post creation and react accordingly, maybe pulling the post or giving the user a score that limits his visibility, etc. Or we could add a metrics engine, to report the conversion of a user on his first post to a variety of external services. Then, when a new developer starts and asks where the metrics code is, we don't have to say what we said before which was, "everywhere." We could show very simple mappings between things that are happening throughout the system and the numbers like revenue or engagement that are getting reported to something like Google Analytics.
 
 
-<a name="summary"></a>
-## Summary
+<a name="about"></a>
+## About
 
-Try out engines. We like them.
+by [Brian Leonard](http://www.bleonard.com/), at Task rabbit.

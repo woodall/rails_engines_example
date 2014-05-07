@@ -35,10 +35,10 @@ p {
   a {
     display: block;
     padding: 0.6em;
+    text-decoration: none;
     &:hover {
       background: #4d81a0;
       color: #eee;
-      text-decoration: none;
     }
   }
 }
@@ -51,4 +51,11 @@ code {
     font-size: 1.3em;
     border: 1px solid #e4e4e4;
     border-radius: 4px;
+}
+
+.titles {
+  margin-top: 2em;
+  border-bottom: 1px solid #aaa;
+  padding: 0.2em;
+  font-size: 1.1em;
 }
