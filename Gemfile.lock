@@ -68,11 +68,6 @@ GEM
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     builder (3.1.4)
-    byebug (2.3.1)
-      columnize (~> 0.3.6)
-      debugger-linecache (~> 1.2.0)
-    columnize (0.3.6)
-    debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -177,7 +172,6 @@ PLATFORMS
 DEPENDENCIES
   account!
   admin!
-  byebug
   content!
   factory_girl_rails
   fixture_builder

@@ -1,0 +1,19 @@
+{
+  "name": "rails-engines",
+  "version": "0.0.1",
+  "devDependencies": {
+    "gulp-util": "~2.2.14",
+    "gulp": "~3.6.0",
+    "gulp-coffee": "~1.4.1",
+    "gulp-concat": "~2.2.0",
+    "gulp-ruby-sass": "~0.4.3",
+    "gulp-uglify": "~0.2.1",
+    "gulp-livereload": "~1.3.1",
+    "tiny-lr": "0.0.5",
+    "gulp-watch": "~0.5.4",
+    "gulp-slim": "0.0.4",
+    "require-dir": "~0.1.0",
+    "gulp-sass": "~0.7.1",
+    "gulp-markdown": "~0.1.2"
+  }
+}

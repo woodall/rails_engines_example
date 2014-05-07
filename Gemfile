@@ -44,7 +44,7 @@ end
 # gem 'capistrano', group: :development
 
 group :development, :test do
-  gem 'byebug'
+  # gem 'byebug'
 end
 
 group :test do
