@@ -6,6 +6,64 @@
   </head>
   <body>
     <div class="l-container">
+      <div class="nav">
+        <p>
+          Table of contents
+        </p>
+        <ul>
+          <li>
+            <a href="#rails-engines">Rails Engines</a>
+          </li>
+          <li>
+            <a href="#versus-many-apps">Versus Many Apps</a>
+          </li>
+          <li>
+            <a href="#versus-single-app">Versus Single App</a>
+          </li>
+          <li>
+            <a href="#engine-usage">Engine Usage</a>
+          </li>
+          <li>
+            <a href="#admin">Admin</a>
+          </li>
+          <li>
+            <a href="#shared-code">Shared Code</a>
+          </li>
+          <li>
+            <a href="#api-server">API Server</a>
+          </li>
+          <li>
+            <a href="#strategies">Strategies</a>
+          </li>
+          <li>
+            <a href="#migrations-and-models">Migrations and Models</a>
+          </li>
+          <li>
+            <a href="#admin">Admin</a>
+          </li>
+          <li>
+            <a href="#assets">Assets</a>
+          </li>
+          <li>
+            <a href="#routes">Routes</a>
+          </li>
+          <li>
+            <a href="#tests">Tests</a>
+          </li>
+          <li>
+            <a href="#memory">Memory</a>
+          </li>
+          <li>
+            <a href="#folders-and-files">Folders and Files</a>
+          </li>
+          <li>
+            <a href="#interaction-between-engines">Interaction Between Engines</a>
+          </li>
+          <li>
+            <a href="#summary">Summary</a>
+          </li>
+        </ul>
+      </div>
       <div class="outer-wrap">
         <div class="wrapper">
           <h1 id="rails-engines-example">Rails Engines Example</h1>
@@ -13,33 +71,13 @@
           <em>View original
           <a href="http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/">post</a></em>.
           <a name="top"></a></p>
-          <h2 id="table-of-contents">Table of contents</h2>
-          <ul>
-          <li><a href="#rails-engines">Rails Engines</a></li>
-          <li><a href="#versus-many-apps">Versus Many Apps</a></li>
-          <li><a href="#versus-single-app">Versus Single App</a></li>
-          <li><a href="#engine-usage">Engine Usage</a></li>
-          <li><a href="#admin">Admin</a></li>
-          <li><a href="#shared-code">Shared Code</a></li>
-          <li><a href="#api-server">API Server</a></li>
-          <li><a href="#strategies">Strategies</a></li>
-          <li><a href="#migrations-and-models">Migrations and Models</a></li>
-          <li><a href="#admin">Admin</a></li>
-          <li><a href="#assets">Assets</a></li>
-          <li><a href="#routes">Routes</a></li>
-          <li><a href="#tests">Tests</a></li>
-          <li><a href="#memory">Memory</a></li>
-          <li><a href="#folders-and-files">Folders and Files</a></li>
-          <li><a href="#interaction-between-engines">Interaction Between Engines</a></li>
-          <li><a href="#summary">Summary</a></li>
-          </ul>
           <p>At
           <a href="https://www.taskrabbit.com">TaskRabbit</a>,
           we have gone through a few iterations on how we make our app(s). In the beginning, there was the monolithic Rails app in the standard way with 100+ models and their many corresponding controllers and views. Then we moved to several apps with their own logic and often using the big one via API. Our newest
           <a href="https://taskrabbit.co.uk">project</a>
           is a single &quot;app&quot; made up of several Rails engines. We have found that this strikes a great balance between the (initial) straightforwardness of the single Rails app and the modularity of the more service-oriented architecture.</p>
           <p>We&#39;ve talked about this approach with a few people and they often ask very specific questions about the tactics used to make this happen, so let&#39;s go through it here and via a</p>
-          <p><a href="https://github.com/taskrabbit/rails_engines_example">sample application</a>.<a href="#top">back to top</a></p>
+          <p><a href="https://github.com/taskrabbit/rails_engines_example">sample application</a>.</p>
           <p><a name="rails-engines"></a></p>
           <h2 id="rails-engines">Rails Engines</h2>
           <p><a href="http://edgeguides.rubyonrails.org/engines.html">Rails Engines</a>
@@ -51,7 +89,6 @@
           <a href="http://pivotallabs.com/migrating-from-a-single-rails-app-to-a-suite-of-rails-engines/">good</a>
           and sometimes
           <a href="http://pivotallabs.com/experience-report-engine-usage-that-didn-t-work/">not so good</a>.</p>
-          <p><a href="#top">back to top</a></p>
           <p><a name="versus-many-apps"></a></p>
           <h2 id="versus-many-apps">Versus Many Apps</h2>
           <p>We&#39;d seen an app balloon and get out of control before, leading us to try and find better ways of modularization. It was fun and somewhat liberating to say &quot;Make a new app!&quot; when there was a new problem domain to tackle. We also used it as a way to handle our growing organization. We could ask Team A to work on App A and know that they could run faster by understanding the scope was limited to that. As a side-note and in retrospect, we probably let organizational factors affect architecture way more than appropriate.</p>
@@ -59,7 +96,6 @@
           <p>But things got rough in coordinating across these apps. It wasn&#39;t just the data access. We made APIs and allowed any app to have read-only access to the platform app&#39;s database. This allowed things go much faster by preventing creation of many GET endpoints and possible points of failure. The main issue in coordinating releases that spanned apps is that they just went slower than if it was one codebase. There was also interminable bumping of gem versions to get shared code to all the apps. Integration testing the whole experience was also very rough.</p>
           <p>So it&#39;s a simple one, but the main advantage that we&#39;ve seen in the engine model is that it is one codebase and git repo. A single pull request has everything related to that feature. It rolls out atomically. Gems can be bumped once and our internal gems aren&#39;t bumped at all as they live unbuilt in a <code>gems</code> folder in the app itself. We still get most of the modularization that multiple apps had. For example, the User model in the payments engine has all the stuff about balances and the one in the profile engine doesn&#39;t know anything about all that and it&#39;s various helper methods.</p>
           <p>The issue with gem upgrades and odd server configurations does continue to exist in the engine model and is mostly fine in the many app model. The gem one is tough and we just try to stay on top of upgrading to the newest things and overall reducing dependencies. The specs will also run slower in the engine app, but you&#39;ll have better integration testing. I&#39;ll go over a little bit about we&#39;ve tackled server configurations and memory further down.</p>
-          <p><a href="#top">back to top</a></p>
           <p><a name="versus-single-app"></a></p>
           <h2 id="versus-single-app">Versus Single App</h2>
           <p>It&#39;s very tempting when green-fielding a project to just revert back to the good-old-days of the original app. Man, that was so nice back before the (too) fat models and tangled views and combinatorics of 4 years of iterating screwed things up. And we&#39;ve learned a lot since then too, right? Especially about saying no to all those
@@ -72,12 +108,10 @@
           <a href="http://www.api-first.com/">APIs</a>.
           Maybe.</p>
           <p>What we do know is that you can feel that way again even a year into an app. Inside any given engine, you have the scope of a much smaller project. Some engines may grow larger and you&#39;ll start to use those tools to keep things under control. Some will (correctly) have limited scope and feel like a simple app in which you understand everything that is happening. For example, decorators are great tool and they came in handy in our big app and larger engines. However, we&#39;ve found in an a targeted engine that only serves its one purpose, it feels like there is room in that model to have some things that would have been decorated in a larger app. This is because it doesn&#39;t have all that other junk in it. Only this engine&#39;s junk :-)</p>
-          <p><a href="#top">back to top</a>
-          <a name="engine-usage"></a></p>
+          <p><a name="engine-usage"></a></p>
           <h2 id="engine-usage">Engine Usage</h2>
           <p>We&#39;ve seen a few different ways to use engines in a Rails project. A few examples are below. The basic variables are what is in the &quot;operator&quot; (root) app and what kind of app we&#39;re making (API driven or not).</p>
-          <p><a href="#top">back to top</a>
-          <a name="admin"></a></p>
+          <p><a name="admin"></a></p>
           <h3 id="admin">Admin</h3>
           <p>The first engine we&#39;ve recommend making to people is the admin engine. In the first app, we made the mistake of putting admin functionality in the &quot;normal&quot; pages. It was very enticing. We had that form already for the user to edit it. Just by changing the permissions, we could allow the admin to edit it, too. Forms are cheap and admins want extra fields. And more info. And basically a different UI.</p>
           <p>So we can made an engine basically just like rails_admin did and gave it&#39;s own layout and views and JS and models and controllers, etc. Overall, we started treating our hardworking admins like we should: a customer with their own needs and dedicated experience.</p>
@@ -108,8 +142,7 @@
           </code></pre><p>When we had this all mixed into one interface and set of models, at least a third of the code in a model like <code>Post</code> or <code>User</code> would be admin-specific actions. With this approach, we can give the admins a better, targeted experience and keep that code in admin-land.</p>
           <p>Throughout these engine discussions, the question of sharing code and/or inheriting from objects will keep coming up. Specifically, for the admin scenario, we say do whatever works for you and on a case by case basis. In the above approach, we would probably tend to have <code>Admin::Post &lt; ::Post</code> and other such inheritance. In Rails 2, we probably wouldn&#39;t have done what as they would have different <code>attr_accessible</code> situations but that&#39;s happening in the controller these days, so now inheriting from them will just get the benefit of the data validations, which is something we definitely want to share.</p>
           <p>Note that inheriting is probably a bad choice if you have callbacks in the root model that you don&#39;t want triggered when the admin saves the record. In that case, it would be better to <code>Admin::Post &lt; ActiveRecord::Base</code> and either duplicate the logic, have it only in SQL table (unique indexes for example), or have a mixin that is included in both.</p>
-          <p><a href="#top">back to top</a>
-          <a name="shared-code"></a></p>
+          <p><a name="shared-code"></a></p>
           <h3 id="shared-code">Shared Code</h3>
           <p>The note about controllers being in charge of the parameters involved leads to the next possibility. You can have your models (at least the ones you need to have shared) in the operator and all the other stuff in the engines. At this point, maybe you could add the <code>engines</code> namespace to be more clear.</p>
           <pre><code>app
@@ -255,8 +288,7 @@
           config
           gems
           spec
-          </code></pre><p><a href="#top">back to top</a>
-          <a name="api-server"></a></p>
+          </code></pre><p><a name="api-server"></a></p>
           <h3 id="api-server">API Server</h3>
           <p>Our latest project at TaskRabbit basically looks the the above and the
           <a href="https://github.com/taskrabbit/rails_engines_example">example</a>
@@ -333,12 +365,10 @@
           </code></pre><p>The API setup alleviates one of the odder things about the example approach. Ideally, there is no interaction between engines. Particularly in the models and views, this is critical. However, some knowledge leaks out in the example though the controllers. For example, the
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/app/controllers/account/application_controller.rb#L11">login controller</a>
           redirects to <code>/posts</code> after login. This is in the content engine. It&#39;s probably not the end of the world but that is coupling. We get around this using our one frontend engine and the several API ones, but this does some serious commitment.</p>
-          <p><a href="#top">back to top</a>
-          <a name="strategies"></a></p>
+          <p><a name="strategies"></a></p>
           <h2 id="strategies">Strategies</h2>
           <p>We&#39;ve gotten lots of questions and read about issues people are having with engines so let&#39;s go through them here.</p>
-          <p><a href="#top">back to top</a>
-          <a name="migrations-and-models"></a></p>
+          <p><a name="migrations-and-models"></a></p>
           <h3 id="migrations-and-models">Migrations and Models</h3>
           <p>Rails bills itself as &quot;convention over configuration&quot; so it&#39;s not too surprising to be confronted with lots of questions about &quot;where to put stuff&quot; when deviating (slightly) from the conventions. The one people seem the most worried about are migrations. We&#39;ve never had an issue, but there must be scenarios that get a little tricky. If you are sharing the models, we would just put them in the normal <code>db/migrate</code> location. If your models live inside the engines, it&#39;s probably not a huge deal to still do that, but we&#39;ve decided to have the migrations live with their models.</p>
           <p>As notes, each model/table (say <code>users</code>) ideally has one master model. In the sample app, the <code>User</code> model&#39;s master is in the
@@ -378,8 +408,7 @@
           <p>Let&#39;s say we wanted to cache the number of posts the user had made. That&#39;s a pretty clearcut case to use <code>counter_cache</code> and put a <code>posts_count</code> in the users table. We&#39;ll want to look closely at this situation. First of all, the <code>counter_cache</code> code would clearly go on the <code>User</code> model in the content engine. That would also require that model to not be read-only or at least not in spirit (depending on the specifics used to implement the feature). It&#39;s not a good feeling when you do all this architecture stuff and it gets in the way of something that is so easy and we have to look out for those cases. If this is one of those cases, just do it; literally, however you want. We would probably keep the migration in the account engine.</p>
           <p>It might not be one of those cases, though. I have almost never been sorry when I&#39;ve made another model in these cases. So we could make a <code>PostStatistic</code> model or something in the content engine which <code>belongs_to :user</code> for recording this (and likely other things that come up). The counter cache feature is not magic - we just increment that table as necessary. It also doesn&#39;t feel that superfluous as it exists only inside that engine (which. in turn, doesn&#39;t have all the random stuff internal to other engines). We have some tables that started out that way. Mostly because we actively try not to do JOINs on our API calls, these tables ending up being the hub of the most relevant data of what has happening in our marketplace. Another option that we&#39;ve used in similar situations is not to make the column at all. The content engine, or whoever is using this kind of data, would use the timestamp of the last <code>Post</code> or some other data to use as the cache key to look up all kinds of stuff in a store like memcache or Redis. If it&#39;s not there, it will take bit the bullet and calculate it and store it in the cache.</p>
           <p>Again, architecture does not exist for fun or to get in the way. If something is super-simple and obvious and easy to maintain while doing the &quot;right&quot; way for the design is difficult and fragile, we just do it the easy way. That&#39;s the way to ship things for customers. However, we&#39;ve found that in most case the rules of the system kick off useful discussions and behaviors that tend to work out quite well.</p>
-          <p><a href="#top">back to top</a>
-          <a name="admin"></a></p>
+          <p><a name="admin"></a></p>
           <h3 id="admin">Admin</h3>
           <p>One of the cases where it&#39;s important to really examine the value and return on investment in engine separation is with the admin engine. We believe it&#39;s a special case.</p>
           <p>In our system, the admin engine has it&#39;s own migrations. For example, we have a model called <code>AdminNote</code> where an admin can jot down little notes about most objects in the system. It clearly owns that. But the reason this whole experience exists in the first place is that it also is able to write more or less whatever it wants to <em>all</em> the objects in the system. This clearly violates our single-model-master rule. So we don&#39;t fight an uphill battle here by making a special case and saying that the admin engine can literally do whatever it wants. All the other engines live in complete isolation from each other for a variety of reasons. Admin can depend directly on any or all of them. It&#39;s at the top of the food chain because it needs to regulate the whole system.</p>
@@ -387,8 +416,7 @@
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/app/models/admin/post.rb">fine</a>
           if <code>Admin::Post &lt; Content::Post</code> or just uses <code>Content::Post</code> directly in it&#39;s controllers. It&#39;s just not worth it to share all of the data definitions and validations with when it will almost always be with engine X and admin. Note that it&#39;s important to have the same validations because admin might be in charge, but it still needs to produce valid data as that other engine will be using it.</p>
           <p>In our much larger app, we inherit from and/or use most of the models in the system as well as service objects from other engines. We do not use outside controllers or views. Our admin engine does use it&#39;s own layout and much simpler request cycle than our much fancier frontend app. We tried to show the admin engine using a different layout in the example app, but they&#39;re both bootstrap so it might be hard to tell. The header is red in admin :-)</p>
-          <p><a href="#top">back to top</a>
-          <a name="assets"></a></p>
+          <p><a name="assets"></a></p>
           <h3 id="assets">Assets</h3>
           <p>Everyone seems to have struggled with this one and I can&#39;t even imagine pulling apart assets if they weren&#39;t coded in a modular way at the start. However, starting with them separate in Rails 4 has been fairly straightforward. We add the following
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/lib/account/engine.rb">code</a>
@@ -401,8 +429,7 @@
           <pre><code class="lang-ruby">= stylesheet_link_tag &#39;account/manifests/application&#39;
           = javascript_include_tag &#39;account/manifests/application&#39;
           </code></pre>
-          <p><a href="#top">back to top</a>
-          <a name="routes"></a></p>
+          <p><a name="routes"></a></p>
           <h3 id="routes">Routes</h3>
           <p>In an Engine, routes go within the engine directory at the
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/config/routes.rb">same</a>
@@ -427,8 +454,7 @@
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/lib/account/engine.rb#L3">use</a>
           <code>isolate_namespace</code> in your Engine declaration. That prevents various things like helper methods from leaking into other engines. This makes sense for our case because the whole point is to stay contained. Another side effect is route helpers like &#39;posts_path&#39; to work as expected without needing to prefix them like <code>content.posts_path</code> in your views. I believe it might also make the parameters more regular (for example having <code>params[:post]</code> instead of <code>params[:content_post]</code>). Oh, just put it in
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/lib/admin/engine.rb">there</a>.</p>
-          <p><a href="#top">back to top</a>
-          <a name="tests"></a></p>
+          <p><a name="tests"></a></p>
           <h3 id="tests">Tests</h3>
           <p>Many of the issues noted
           <a href="http://pivotallabs.com/experience-report-engine-usage-that-didn-t-work/">here</a>
@@ -479,8 +505,7 @@
           end
           </code></pre>
           <p>The same sort of thing could be done with FactoryGirl too. Often, we end up just using the ids more than we would in a normal test suite. The important thing to note is to just do whatever you feel gives you the best coverage with the most return on investment for your time.</p>
-          <p><a href="#top">back to top</a>
-          <a name="memory"></a></p>
+          <p><a name="memory"></a></p>
           <h3 id="memory">Memory</h3>
           <p>You may have noticed the
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/lib/boot_inquirer.rb">BootInquirer</a>
@@ -522,12 +547,10 @@
           to say <code>Bundler.setup(:default, Rails.env)</code> instead of <code>Bundler.require(:default, Rails.env)</code> as usual. This mean we will have to explicitly require the gems we are using instead of it happening automatically. Most of those dependencies are in the engines&#39; gemspecs and they&#39;d have to be required anyway. However, by changing this line, we&#39;ll have to require what is needed from the main Gemfile as well. Ideally, there wouldn&#39;t be anything in
           <a href="https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/Gemfile">there</a> at all, but we have some Rails and test stuff that all the engines use.</p>
           <p>You may notice that the exception we made for the admin engine rears its head here. If admin depends on the other engines, you won&#39;t be able to use admin experience unless you launch the app with all those engines. This is definitely true. The servers that the admin urls route to will have to have all of the engines running. We found it was useful to quarantine admin usage anyway as there are a few requests and inputs that could blow out the heap size fairly easily.</p>
-          <p><a href="#top">back to top</a>
-          <a name="folders-and-files"></a></p>
+          <p><a name="folders-and-files"></a></p>
           <h3 id="folders-and-files">Folders and Files</h3>
           <p>If you&#39;re interested in this setup, you&#39;re just going to have to get used to it. There are a lot of directories. There are lot of files named the same thing. I&#39;ve found that Sublime Text is better for this than Textmate. I&#39;m a huge fan of ⌘T to open files and Sublime allows the use of the directory names in that typeahead list. If your editor doesn&#39;t do this, then you&#39;ll spend more time than you want to look through the six different <code>user.rb</code> or <code>application_contoller.rb</code> files in the project.</p>
-          <p><a href="#top">back to top</a>
-          <a name="interaction-between-engines"></a></p>
+          <p><a name="interaction-between-engines"></a></p>
           <h3 id="interaction-between-engines">Interaction Between Engines</h3>
           <p>So we&#39;ve gone through a lot of trouble to keep that shiny new Rails app feel. Each engine has a particular goal in life and everything is nice and simple. Particularly in the API case, it writes and reads its data and generally just takes of business. But the world isn&#39;t always perfect and sometimes the engines need to talk to each other. If it&#39;s happening too much, we probably didn&#39;t modularize along the right lines and we should consider throwing them together. We don&#39;t have all the answers, but engine naming and scoping seems to be a fine art. It&#39;s very tempting to go very narrow for cleanliness and it&#39;s also very tempting to just throw stuff in to an existing one so I&#39;m not surprised when we find that the lines are a not drawn quite right.</p>
           <p>There are other cases, though, that are not systemic errors in engine-picking and future-prediction. It&#39;s the kind of case I talked about with the <code>posts_count</code> above. Let&#39;s say we had a good reason to make that happen. Actually let&#39;s change it just a little bit to be more realistic. Let&#39;s say we had a profile engine where user could manage his online presence. Let&#39;s also say that other users could see and rate his posts. It&#39;s a completely reasonable thing to have an average post rating shown on his profile. Does this data about posts mean that the profile pages or API should be part of the content engine? We don&#39;t think so. This is likely just one tiny detail in an engine otherwise setup to upload photos, quote favorite movies, or whatever. We just need a little average rating on the there somewhere with a link to the posts.</p>
@@ -589,8 +612,7 @@
           end
           </code></pre>
           <p>However you do it, the point is that this engine is working on it&#39;s own for it&#39;s own purposes. Layering it on, it&#39;s quite straightforward to see how we could build spam detection as its own engine or into the admin one. We could subscribe to ratings or post creation and react accordingly, maybe pulling the post or giving the user a score that limits his visibility, etc. Or we could add a metrics engine, to report the conversion of a user on his first post to a variety of external services. Then, when a new developer starts and asks where the metrics code is, we don&#39;t have to say what we said before which was, &quot;everywhere.&quot; We could show very simple mappings between things that are happening throughout the system and the numbers like revenue or engagement that are getting reported to something like Google Analytics.</p>
-          <p><a href="#top">back to top</a>
-          <a name="summary"></a></p>
+          <p><a name="summary"></a></p>
           <h2 id="summary">Summary</h2>
           <p>Try out engines. We like them.</p>
 

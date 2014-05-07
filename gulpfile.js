@@ -30,7 +30,6 @@ gulp.task('sass', function(){
 gulp.task('markdown', function () {
     gulp.src('README.md')
         .pipe(markdown())
-        .pipe(concat('index.html'))
         .pipe(gulp.dest('.'));
 });
 

@@ -5,25 +5,6 @@ _View original
 [post](http://tech.taskrabbit.com/blog/2014/02/11/rails-4-engines/)_.
 <a name="top"></a>
 
-## Table of contents
-- [Rails Engines](#rails-engines)
-- [Versus Many Apps](#versus-many-apps)
-- [Versus Single App](#versus-single-app)
-- [Engine Usage](#engine-usage)
-- [Admin](#admin)
-- [Shared Code](#shared-code)
-- [API Server](#api-server)
-- [Strategies](#strategies)
-- [Migrations and Models](#migrations-and-models)
-- [Admin](#admin)
-- [Assets](#assets)
-- [Routes](#routes)
-- [Tests](#tests)
-- [Memory](#memory)
-- [Folders and Files](#folders-and-files)
-- [Interaction Between Engines](#interaction-between-engines)
-- [Summary](#summary)
-
 
 At
 [TaskRabbit](https://www.taskrabbit.com),
@@ -33,7 +14,7 @@ is a single "app" made up of several Rails engines. We have found that this stri
 
 We've talked about this approach with a few people and they often ask very specific questions about the tactics used to make this happen, so let's go through it here and via a
 
-[sample application](https://github.com/taskrabbit/rails_engines_example).[back to top](#top)
+[sample application](https://github.com/taskrabbit/rails_engines_example).
 
 <a name="rails-engines"></a>
 ## Rails Engines
@@ -49,7 +30,7 @@ At some point, there was a talk that suggested the approach of putting my our fu
 and sometimes
 [not so good](http://pivotallabs.com/experience-report-engine-usage-that-didn-t-work/).
 
-[back to top](#top)
+
 
 <a name="versus-many-apps"></a>
 ## Versus Many Apps
@@ -64,7 +45,7 @@ So it's a simple one, but the main advantage that we've seen in the engine model
 
 The issue with gem upgrades and odd server configurations does continue to exist in the engine model and is mostly fine in the many app model. The gem one is tough and we just try to stay on top of upgrading to the newest things and overall reducing dependencies. The specs will also run slower in the engine app, but you'll have better integration testing. I'll go over a little bit about we've tackled server configurations and memory further down.
 
-[back to top](#top)
+
 
 <a name="versus-single-app"></a>
 ## Versus Single App
@@ -82,14 +63,14 @@ Maybe.
 What we do know is that you can feel that way again even a year into an app. Inside any given engine, you have the scope of a much smaller project. Some engines may grow larger and you'll start to use those tools to keep things under control. Some will (correctly) have limited scope and feel like a simple app in which you understand everything that is happening. For example, decorators are great tool and they came in handy in our big app and larger engines. However, we've found in an a targeted engine that only serves its one purpose, it feels like there is room in that model to have some things that would have been decorated in a larger app. This is because it doesn't have all that other junk in it. Only this engine's junk :-)
 
 
-[back to top](#top)
+
 <a name="engine-usage"></a>
 ## Engine Usage
 
 We've seen a few different ways to use engines in a Rails project. A few examples are below. The basic variables are what is in the "operator" (root) app and what kind of app we're making (API driven or not).
 
 
-[back to top](#top)
+
 <a name="admin"></a>
 ### Admin
 
@@ -131,7 +112,7 @@ Throughout these engine discussions, the question of sharing code and/or inherit
 
 Note that inheriting is probably a bad choice if you have callbacks in the root model that you don't want triggered when the admin saves the record. In that case, it would be better to `Admin::Post < ActiveRecord::Base` and either duplicate the logic, have it only in SQL table (unique indexes for example), or have a mixin that is included in both.
 
-[back to top](#top)
+
 <a name="shared-code"></a>
 ### Shared Code
 
@@ -294,7 +275,7 @@ gems
 spec
 ```
 
-[back to top](#top)
+
 <a name="api-server"></a>
 ### API Server
 
@@ -379,13 +360,13 @@ The API setup alleviates one of the odder things about the example approach. Ide
 [login controller](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/account/app/controllers/account/application_controller.rb#L11)
 redirects to `/posts` after login. This is in the content engine. It's probably not the end of the world but that is coupling. We get around this using our one frontend engine and the several API ones, but this does some serious commitment.
 
-[back to top](#top)
+
 <a name="strategies"></a>
 ## Strategies
 
 We've gotten lots of questions and read about issues people are having with engines so let's go through them here.
 
-[back to top](#top)
+
 <a name="migrations-and-models"></a>
 ### Migrations and Models
 
@@ -440,7 +421,7 @@ It might not be one of those cases, though. I have almost never been sorry when 
 
 Again, architecture does not exist for fun or to get in the way. If something is super-simple and obvious and easy to maintain while doing the "right" way for the design is difficult and fragile, we just do it the easy way. That's the way to ship things for customers. However, we've found that in most case the rules of the system kick off useful discussions and behaviors that tend to work out quite well.
 
-[back to top](#top)
+
 <a name="admin"></a>
 ### Admin
 
@@ -454,7 +435,7 @@ if `Admin::Post < Content::Post` or just uses `Content::Post` directly in it's c
 
 In our much larger app, we inherit from and/or use most of the models in the system as well as service objects from other engines. We do not use outside controllers or views. Our admin engine does use it's own layout and much simpler request cycle than our much fancier frontend app. We tried to show the admin engine using a different layout in the example app, but they're both bootstrap so it might be hard to tell. The header is red in admin :-)
 
-[back to top](#top)
+
 <a name="assets"></a>
 ### Assets
 
@@ -474,7 +455,7 @@ You could list all the manifests one by one, but we've found that it's simpler t
 = javascript_include_tag 'account/manifests/application'
 ```
 
-[back to top](#top)
+
 <a name="routes"></a>
 ### Routes
 
@@ -509,7 +490,7 @@ Another important note is to
 `isolate_namespace` in your Engine declaration. That prevents various things like helper methods from leaking into other engines. This makes sense for our case because the whole point is to stay contained. Another side effect is route helpers like 'posts_path' to work as expected without needing to prefix them like `content.posts_path` in your views. I believe it might also make the parameters more regular (for example having `params[:post]` instead of `params[:content_post]`). Oh, just put it in
 [there](https://github.com/taskrabbit/rails_engines_example/blob/434e687b795ec52705a3be1dd2c635f0054336d4/apps/admin/lib/admin/engine.rb).
 
-[back to top](#top)
+
 <a name="tests"></a>
 ### Tests
 
@@ -575,7 +556,7 @@ end
 
 The same sort of thing could be done with FactoryGirl too. Often, we end up just using the ids more than we would in a normal test suite. The important thing to note is to just do whatever you feel gives you the best coverage with the most return on investment for your time.
 
-[back to top](#top)
+
 <a name="memory"></a>
 ### Memory
 
@@ -633,13 +614,13 @@ to say `Bundler.setup(:default, Rails.env)` instead of `Bundler.require(:default
 
 You may notice that the exception we made for the admin engine rears its head here. If admin depends on the other engines, you won't be able to use admin experience unless you launch the app with all those engines. This is definitely true. The servers that the admin urls route to will have to have all of the engines running. We found it was useful to quarantine admin usage anyway as there are a few requests and inputs that could blow out the heap size fairly easily.
 
-[back to top](#top)
+
 <a name="folders-and-files"></a>
 ### Folders and Files
 
 If you're interested in this setup, you're just going to have to get used to it. There are a lot of directories. There are lot of files named the same thing. I've found that Sublime Text is better for this than Textmate. I'm a huge fan of ⌘T to open files and Sublime allows the use of the directory names in that typeahead list. If your editor doesn't do this, then you'll spend more time than you want to look through the six different `user.rb` or `application_contoller.rb` files in the project.
 
-[back to top](#top)
+
 <a name="interaction-between-engines"></a>
 ### Interaction Between Engines
 
@@ -719,7 +700,7 @@ end
 
 However you do it, the point is that this engine is working on it's own for it's own purposes. Layering it on, it's quite straightforward to see how we could build spam detection as its own engine or into the admin one. We could subscribe to ratings or post creation and react accordingly, maybe pulling the post or giving the user a score that limits his visibility, etc. Or we could add a metrics engine, to report the conversion of a user on his first post to a variety of external services. Then, when a new developer starts and asks where the metrics code is, we don't have to say what we said before which was, "everywhere." We could show very simple mappings between things that are happening throughout the system and the numbers like revenue or engagement that are getting reported to something like Google Analytics.
 
-[back to top](#top)
+
 <a name="summary"></a>
 ## Summary
 

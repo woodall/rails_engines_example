@@ -4,9 +4,44 @@ body {
   margin-top: 3em; }
 
 h1, h2 {
-  font-size: 1.2em;
+  font-size: 2.5em;
   margin: 0;
   padding: 0; }
+
+h3 {
+  font-size: 2em; }
+
+p {
+  line-height: 26px;
+  padding: 0.6em; }
+
+.nav {
+  position: fixed;
+  padding: 0.3em;
+  left: 20px;
+  width: 18em;
+  background: white; }
+  .nav li {
+    list-style: none; }
+  .nav ul {
+    padding: 0;
+    margin: 0; }
+  .nav a {
+    display: block;
+    padding: 0.6em; }
+    .nav a:hover {
+      background: #4d81a0;
+      color: #eee;
+      text-decoration: none; }
+
+code {
+  background: #F2F2F2;
+  display: block;
+  padding: 1em;
+  color: #4d81a0;
+  font-size: 1.3em;
+  border: 1px solid #e4e4e4;
+  border-radius: 4px; }
 
 .l-container {
   margin: 0 auto;
@@ -16,6 +51,7 @@ h1, h2 {
 
 .outer-wrap {
   margin: 0 auto;
+  margin-left: 20em;
   max-width: 960px;
   background: #e6e6e6;
   padding: 0.5em;
